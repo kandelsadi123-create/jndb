@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Palette: the only place raw colour values are allowed to exist.
+   ------------------------------------------------------------------ */
+:root {
+  --palette-cream: #faf7f2;
+  --palette-sand: #f1e8da;
+  --palette-clay: #d9c6ad;
+  --palette-coffee-700: #4a2e17;
+  --palette-coffee-600: #6f4726;
+  --palette-coffee-500: #8f6039;
+  --palette-coffee-300: #c7a582;
+  --palette-ink: #1b1512;
+  --palette-ink-soft: #52463c;
+  --palette-paper: #ffffff;
+}
+
+/* ------------------------------------------------------------------
+   Semantic tokens: what components are allowed to reference.
+   ------------------------------------------------------------------ */
+@theme inline {
+  --color-surface: var(--palette-cream);
+  --color-surface-raised: var(--palette-paper);
+  --color-surface-muted: var(--palette-sand);
+  --color-border: var(--palette-clay);
+
+  --color-ink: var(--palette-ink);
+  --color-ink-muted: var(--palette-ink-soft);
+
+  --color-brand: var(--palette-coffee-600);
+  --color-brand-strong: var(--palette-coffee-700);
+  --color-brand-soft: var(--palette-coffee-300);
+  --color-brand-tint: var(--palette-sand);
+  --color-on-brand: var(--palette-paper);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", serif;
+
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  ::selection {
+    background-color: var(--color-brand-soft);
+    color: var(--color-brand-strong);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Shared component primitives
+   ------------------------------------------------------------------ */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-pill);
+    padding-block: 0.75rem;
+    padding-inline: 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-decoration: none;
+    transition-property: background-color, color, border-color, box-shadow;
+    transition-duration: 150ms;
+    cursor: pointer;
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--color-brand-strong);
+    outline-offset: 2px;
+  }
+
+  .btn-primary {
+    background-color: var(--color-brand);
+    color: var(--color-on-brand);
+    border: 1px solid var(--color-brand);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-brand-strong);
+    border-color: var(--color-brand-strong);
+  }
+
+  .btn-primary:active {
+    background-color: var(--palette-coffee-700);
+    transform: translateY(1px);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-brand-strong);
+    border: 1px solid var(--color-brand-soft);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-brand-tint);
+    border-color: var(--color-brand);
+  }
+
+  .btn-secondary:active {
+    transform: translateY(1px);
+  }
+
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+  }
+
+  .surface-card {
+    background-color: var(--color-surface-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Motion, respecting user preference
+   ------------------------------------------------------------------ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .reveal {
+    animation: rise 500ms ease-out both;
+  }
+
+  .reveal-2 {
+    animation-delay: 120ms;
+  }
+
+  .reveal-3 {
+    animation-delay: 240ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal,
+  .reveal-2,
+  .reveal-3 {
+    animation: none;
+  }
+}
