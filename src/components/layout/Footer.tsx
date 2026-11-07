@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const programLinks = [
   { label: "Barista Foundation", href: "#courses" },
   { label: "Latte Art Mastery", href: "#courses" },
@@ -15,9 +17,20 @@ export default function Footer() {
     <footer id="visit" className="border-t border-border bg-surface-muted">
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="font-serif text-lg font-semibold tracking-tight text-ink">
-            J &amp; B Barista Academy
-          </p>
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border bg-surface-raised">
+              <Image
+                src="/icon-192.png"
+                alt=""
+                width={80}
+                height={80}
+                className="h-full w-full object-cover"
+              />
+            </span>
+            <p className="font-serif text-lg font-semibold tracking-tight text-ink">
+              J &amp; B Barista Academy
+            </p>
+          </div>
           <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-muted">
             Specialty coffee training in the heart of Hetauda. Small classes, working
             equipment, and instructors who have trained across Asia and Europe.
