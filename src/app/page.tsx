@@ -1,89 +1,7 @@
 import Image from "next/image";
-
-const courses = [
-  {
-    id: "barista-foundation",
-    title: "Barista Foundation",
-    duration: "4 weeks",
-    level: "Beginner",
-    summary:
-      "Espresso extraction, milk texturing, and the science behind a balanced shot.",
-    image: {
-      src: "/images/course-foundation.jpg",
-      alt: "Espresso machine pulling a shot into a cup",
-    },
-    outcomes: [
-      "Dial in a grinder and hold a recipe",
-      "Steam milk to a stable microfoam",
-      "Run a clean, fast espresso bar",
-    ],
-    featured: false,
-  },
-  {
-    id: "latte-art-mastery",
-    title: "Latte Art Mastery",
-    duration: "6 weeks",
-    level: "Intermediate",
-    summary:
-      "Build a steady pour and a repeatable pattern, from a clean heart to a full rosetta.",
-    image: {
-      src: "/images/course-latte-art.jpg",
-      alt: "Latte art pattern in a white coffee cup",
-    },
-    outcomes: [
-      "Control flow rate and pitcher height",
-      "Pour hearts, tulips, and rosettas",
-      "Keep symmetry under service pressure",
-    ],
-    featured: true,
-  },
-  {
-    id: "coffee-shop-management",
-    title: "Coffee Shop Management",
-    duration: "8 weeks",
-    level: "Advanced",
-    summary:
-      "Costing, supply, menu design, and the operating rhythm of a small cafe.",
-    image: {
-      src: "/images/course-management.jpg",
-      alt: "Cafe interior with tables and seating",
-    },
-    outcomes: [
-      "Build a menu with real margins",
-      "Plan stock and supplier terms",
-      "Write a launch plan you can fund",
-    ],
-    featured: false,
-  },
-];
-
-const stats = [
-  { value: "500+", label: "Graduates" },
-  { value: "12", label: "Instructors" },
-  { value: "98%", label: "Placement" },
-  { value: "5 yrs", label: "In Hetauda" },
-];
-
-const testimonials = [
-  {
-    quote:
-      "I arrived able to make a decent coffee at home. I left able to run a bar on my own. The difference was the repetition and the honesty of the feedback.",
-    name: "Srijana Thapa",
-    role: "Owner, Kathmandu cafe",
-  },
-  {
-    quote:
-      "The latte art block is taught properly. Every pour is filmed and reviewed, so you can see exactly what your hand did wrong.",
-    name: "Bikash Rai",
-    role: "Head barista, Pokhara",
-  },
-  {
-    quote:
-      "I took the management track as a hobby learner and came out with a costed menu and a plan. That was more than I expected.",
-    name: "Anita Shrestha",
-    role: "Coffee enthusiast",
-  },
-];
+import JsonLd from "@/components/seo/JsonLd";
+import { pageGraph } from "@/lib/schema";
+import { COURSES, FAQS, SITE, STATS, TESTIMONIALS } from "@/lib/site";
 
 const starPath =
   "M12 3.2l2.6 5.4 5.9.8-4.3 4.1 1.1 5.9-5.3-2.9-5.3 2.9 1.1-5.9-4.3-4.1 5.9-.8L12 3.2Z";
@@ -108,24 +26,26 @@ function Stars() {
 export default function HomePage() {
   return (
     <div id="top">
+      <JsonLd data={pageGraph()} />
+
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-surface">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-5 py-16 sm:px-8 sm:py-24 lg:grid-cols-12">
           <div className="reveal lg:col-span-7">
-            <p className="eyebrow">Hetauda, Nepal</p>
+            <p className="eyebrow">Specialty coffee school</p>
             <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight tracking-tight text-ink sm:text-5xl lg:text-6xl">
-              Master the craft
+              Barista training
               <br />
-              of specialty coffee
+              in Hetauda, Nepal
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-ink-muted sm:text-lg">
-              A working training bar in Hetauda. Small cohorts, real equipment, and
-              instructors who have trained across Asia and Europe. Start where you are
-              and leave ready for a bar.
+              Master espresso, milk texturing and latte art on a working bar. Four to
+              eight week courses, eight students per class, and instructors who have
+              trained across Asia and Europe.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a href="#courses" className="btn btn-primary">
-                Explore courses
+                See the courses
                 <svg
                   viewBox="0 0 24 24"
                   className="h-4 w-4"
@@ -137,12 +57,12 @@ export default function HomePage() {
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
               </a>
-              <a href="#academy" className="btn btn-secondary">
-                See the academy
+              <a href={`tel:${SITE.phone.e164}`} className="btn btn-secondary">
+                Call {SITE.phone.display}
               </a>
             </div>
             <dl className="mt-12 grid max-w-lg grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
-              {stats.map((stat) => (
+              {STATS.map((stat) => (
                 <div key={stat.label}>
                   <dt className="text-xs font-medium uppercase tracking-wider text-ink-muted">
                     {stat.label}
@@ -177,9 +97,9 @@ export default function HomePage() {
       <section id="courses" className="border-b border-border bg-surface py-16 sm:py-24">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="max-w-2xl">
-            <p className="eyebrow">Programs</p>
+            <p className="eyebrow">Courses</p>
             <h2 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Three tracks, one standard
+              Three barista courses, one standard
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink-muted">
               Each track runs in the same training bar, on the same machines you will
@@ -188,7 +108,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {courses.map((course, index) => (
+            {COURSES.map((course, index) => (
               <article
                 key={course.id}
                 id={course.id}
@@ -255,9 +175,9 @@ export default function HomePage() {
                     <a
                       href="#visit"
                       className="btn btn-primary w-full"
-                      aria-label={`Enroll in ${course.title}`}
+                      aria-label={`Enrol in ${course.title}`}
                     >
-                      Enroll
+                      Enrol
                     </a>
                   </div>
                 </div>
@@ -281,9 +201,9 @@ export default function HomePage() {
               with good people
             </h2>
             <p className="mt-5 text-base leading-relaxed text-ink-muted">
-              The academy sits inside a working cafe, so every session runs against real
-              orders and real time pressure. Class sizes stay small enough that an
-              instructor can watch every pour and correct it on the spot.
+              The academy sits inside a working cafe in Hetauda, so every session runs
+              against real orders and real time pressure. Class sizes stay small enough
+              that an instructor can watch every pour and correct it on the spot.
             </p>
             <p className="mt-4 text-base leading-relaxed text-ink-muted">
               You do not need experience to start. You need a willingness to repeat a
@@ -351,7 +271,7 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section id="stories" className="bg-surface py-16 sm:py-24">
+      <section id="stories" className="border-b border-border bg-surface py-16 sm:py-24">
         <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
           <div className="max-w-2xl">
             <p className="eyebrow">Student stories</p>
@@ -361,7 +281,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {testimonials.map((item, index) => (
+            {TESTIMONIALS.map((item, index) => (
               <figure
                 key={item.name}
                 className={[
@@ -383,8 +303,59 @@ export default function HomePage() {
               </figure>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="relative mt-14 overflow-hidden rounded-card border border-border">
+      {/* FAQ */}
+      <section id="faq" className="border-b border-border bg-surface-muted py-16 sm:py-24">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 sm:px-8 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <p className="eyebrow">Questions</p>
+            <h2 className="mt-3 font-serif text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+              Barista course questions, answered
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-ink-muted">
+              Direct answers about location, course length, class size and enrolment.
+            </p>
+            <a
+              href={`tel:${SITE.phone.e164}`}
+              className="btn btn-secondary mt-6"
+            >
+              Call {SITE.phone.display}
+            </a>
+          </div>
+
+          <div className="divide-y divide-border border-y border-border lg:col-span-8">
+            {FAQS.map((faq) => (
+              <details key={faq.question} className="group py-5">
+                <summary className="flex cursor-pointer list-none items-start justify-between gap-6 text-left [&::-webkit-details-marker]:hidden">
+                  <h3 className="font-serif text-lg font-semibold tracking-tight text-ink">
+                    {faq.question}
+                  </h3>
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="mt-1 h-5 w-5 shrink-0 text-brand transition-transform group-open:rotate-45"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden="true"
+                  >
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </summary>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted">
+                  {faq.answer}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="bg-surface py-16 sm:py-20">
+        <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
+          <div className="relative overflow-hidden rounded-card border border-border">
             <Image
               src="/images/cta-coffee.jpg"
               alt=""
@@ -392,19 +363,31 @@ export default function HomePage() {
               sizes="100vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-brand-strong/90" />
-            <div className="relative flex flex-col items-start justify-between gap-6 p-7 sm:flex-row sm:items-center">
+            <div className="absolute inset-0 bg-brand-strong/92" />
+            <div className="relative flex flex-col items-start justify-between gap-7 p-7 sm:p-10 lg:flex-row lg:items-center">
               <div>
-                <p className="font-serif text-2xl font-semibold tracking-tight text-on-brand">
+                <p className="font-serif text-2xl font-semibold tracking-tight text-on-brand sm:text-3xl">
                   Next cohort starts soon
                 </p>
-                <p className="mt-1.5 text-sm text-on-brand/85">
-                  Visit the academy in Hetauda, or write to us for dates and fees.
+                <p className="mt-2 max-w-xl text-sm leading-relaxed text-on-brand/85">
+                  Ask about upcoming dates, visit the training bar in Hetauda, or enrol
+                  by phone. Classes are capped at eight students.
                 </p>
               </div>
-              <a href="#visit" className="btn btn-secondary bg-surface-raised">
-                Get in touch
-              </a>
+              <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+                <a
+                  href={`tel:${SITE.phone.e164}`}
+                  className="btn btn-light"
+                >
+                  Call {SITE.phone.display}
+                </a>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  className="btn btn-outline-light"
+                >
+                  Email the academy
+                </a>
+              </div>
             </div>
           </div>
         </div>
