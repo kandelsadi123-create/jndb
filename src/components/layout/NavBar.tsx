@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 
 const navItems = [
@@ -19,15 +20,15 @@ export default function NavBar() {
           href="#top"
           className="flex items-center gap-2.5 rounded-pill focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand"
         >
-          <span
-            aria-hidden="true"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-brand text-on-brand"
-          >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
-              <path d="M4 8h11v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8Z" />
-              <path d="M15 9h2.5a2.5 2.5 0 0 1 0 5H15" />
-              <path d="M7 4.5c0 .8.8 1 .8 1.8M10.5 4.5c0 .8.8 1 .8 1.8" />
-            </svg>
+          <span className="flex h-9 w-9 shrink-0 overflow-hidden rounded-full border border-border bg-surface-raised">
+            <Image
+              src="/icon-192.png"
+              alt=""
+              width={72}
+              height={72}
+              priority
+              className="h-full w-full object-cover"
+            />
           </span>
           <span className="flex flex-col leading-none">
             <span className="font-serif text-base font-semibold tracking-tight text-ink">
